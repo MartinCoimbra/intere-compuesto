@@ -1,19 +1,8 @@
 import { Formik, Form } from "formik";
-import styled from "styled-components";
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  align-items: center;
-`;
-const Section = styled.section`
-  background-color: #eee;
-  border-top: solid 2px palegoldenrod;
-  padding: 20px 25px;
-  width: 500px;
-  box-shadow: 0px 2px 3px rgb(0, 0, 0, 0.3);
-`;
+import Input from "./components/Input";
+import Button from "./components/Button";
+import Container from "./components/Container";
+import Section from "./components/Section";
 
 const App = () => {
   const handleSubmit = () => {
@@ -28,7 +17,11 @@ const App = () => {
           onSubmit={handleSubmit}
         >
           <Form>
-          {/*  */}
+            <Input name="deposit" label="Deposito inicial" />
+            <Input name="contribution" label="Contribución anual" />
+            <Input name="years" label="Años" />
+            <Input name="rate" label="Interés estimado" />
+            <Button>Calcular</Button>
           </Form>
         </Formik>
       </Section>
