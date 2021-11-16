@@ -5,6 +5,9 @@ import Container from "./components/Container";
 import Section from "./components/Section";
 import Balance from "./components/Balance";
 import { useState } from "react";
+import * as Yup from "yup";
+
+/* Formik viene integrado de forma opcional con yup */
 
 const compoundInterest = (deposit, contribution, years, rate) => {
   let total = deposit;
@@ -39,13 +42,29 @@ const App = () => {
         <Formik
           initialValues={{ deposit: "", contribution: "", years: "", rate: "" }}
           onSubmit={handleSubmit}
+          validationSchema={Yup.object({
+            deposit: Yup.number()
+              .required("Obligatorio")
+              .typeError("Debe ser un numero"),
+            contribution: Yup.number()
+              .required("Obligatorio")
+              .typeError("Debe ser un numero"),
+            years: Yup.number()
+              .required("Obligatorio")
+              .typeError("Debe ser un numero"),
+            rate: Yup.number()
+              .required("Obligatorio")
+              .typeError("Debe ser un numero")
+              .min(0, "El valor minimo es 0")
+              .max(1, "El valor maximo es 1"),
+          })}
         >
           <Form>
             <Input name="deposit" label="Deposito inicial" />
             <Input name="contribution" label="Contribución anual" />
             <Input name="years" label="Años" />
             <Input name="rate" label="Interés estimado" />
-            <Button>Calcular</Button>
+            <Button type="submit">Calcular</Button>
           </Form>
         </Formik>
         {balance !== "" && <Balance>Balance final: {balance}</Balance>}
